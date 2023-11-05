@@ -1,0 +1,12 @@
+#(c) ImpiCode Sp. z o.o.
+#Stamp: MAL 2021-07-02
+
+#python objects
+__pycache__/
+*.py[cod]
+
+#files that shouldn't be in repo
+../.env
+migrations/
+media/
+django.mo
