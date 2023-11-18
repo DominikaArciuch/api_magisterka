@@ -8,6 +8,7 @@ node_modules/
 dist/
 .env.dev
 .env.dev.db
+.env.dev.pgadmin
 .env.prod
 .env.prod.db
 
