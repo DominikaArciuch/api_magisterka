@@ -7,6 +7,5 @@ __pycache__/
 
 #files that shouldn't be in repo
 ../.env
-migrations/
 media/
 django.mo
