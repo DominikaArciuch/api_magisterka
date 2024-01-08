@@ -51,7 +51,7 @@ DJOSER = {
     "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
     "PASSWORD_RESET_CONFIRM_URL": "password-reset/?uid={uid}&&token={token}",
     "SERIALIZERS": {
-        "user_create": "users.serializers.CustomUserSerializer",
+        "user_create": "users.serializers.CreateCustomUserSerializer",
         "user": "users.serializers.CustomUserSerializer",
         "current_user": "users.serializers.CustomUserSerializer",
         "user_delete": "djoser.serializers.UserSerializer",

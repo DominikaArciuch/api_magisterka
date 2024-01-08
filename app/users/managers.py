@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
             is_staff=is_staff,
             **extra_fields
         )
-
+        print(user)
         user.set_password(password)
         user.save()
         return user
