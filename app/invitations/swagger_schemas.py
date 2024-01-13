@@ -3,6 +3,10 @@ from rest_framework import status
 
 from .serializers import InvitationSerializer
 
+get_invitations_list_schema = {
+    'operation_summary': "Get invitations",
+}
+
 send_invitation_schema = {
     'operation_summary': "Send invitation",
     'operation_description': "Sends an invitation to a user to join a house. Check if user is already invited to this house.",

@@ -16,21 +16,19 @@ class CreateInvitationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invitation
         fields = ['user', 'house']
-        read_only_fields = ['id', 'is_used']
+        read_only_fields = ['id']
 
 class BasicInvitationSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer()
     house = BasicHouseInfoSerializer()
     class Meta:
         model = Invitation
-        fields = "__all__"
+        fields = ['id', 'house']
 
 class InvitationSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer()
     house = HouseSerializer()
     class Meta:
         model = Invitation
-        fields = "__all__"
+        fields = ['id', 'house']
 
 class InvitationUpdateSerializer(serializers.ModelSerializer):
     class Meta:

@@ -7,7 +7,8 @@ from rest_framework.response import Response
 from .models import Invitation
 from .serializers import InvitationSerializer, CreateInvitationSerializer, InvitationUpdateSerializer, \
     BasicInvitationSerializer
-from .swagger_schemas import send_invitation_schema, get_invitation_schema, solve_invitation_schema
+from .swagger_schemas import send_invitation_schema, get_invitation_schema, solve_invitation_schema, \
+    get_invitations_list_schema
 
 
 class SendInvitationView(generics.ListCreateAPIView):
@@ -42,6 +43,11 @@ class SendInvitationView(generics.ListCreateAPIView):
             queryset = queryset.filter(user=user, is_used=False)
         return queryset
 
+    @swagger_auto_schema(**get_invitations_list_schema)
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
 class InvitationView(generics.RetrieveUpdateAPIView):
     queryset = Invitation.objects.all()
 
@@ -67,11 +73,10 @@ class InvitationView(generics.RetrieveUpdateAPIView):
                 house.save()
                 invitation.is_accepted = is_accepted
             invitation.save()
-            return Response(InvitationSerializer(invitation).data,status=status.HTTP_200_OK)
+            return Response(InvitationSerializer(invitation).data, status=status.HTTP_200_OK)
         return Response({"is_accepted": ["This field is required."]}, status=status.HTTP_400_BAD_REQUEST)
 
     @swagger_auto_schema(method='put', auto_schema=None)
     @api_view(['PUT'])
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
-
