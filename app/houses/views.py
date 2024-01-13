@@ -34,8 +34,8 @@ class HouseListCreateView(generics.ListCreateAPIView):
 
 
 class HouseDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = House.objects.all()
     serializer_class = HouseSerializer
+    queryset = House.objects.all()
 
     def get_serializer_class(self):
         if self.request.method == 'PATCH':

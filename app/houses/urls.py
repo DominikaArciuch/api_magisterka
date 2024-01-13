@@ -4,5 +4,5 @@ from .views import HouseListCreateView, HouseDetailView
 
 urlpatterns = [
     path("", HouseListCreateView.as_view()),
-    path("<int:pk>/", HouseDetailView.as_view()),
+    path("<str:pk>/", HouseDetailView.as_view()),
 ]
