@@ -6,9 +6,16 @@ from users.models import CustomUser
 
 
 class HouseSerializer(serializers.ModelSerializer):
+    users = CustomUserSerializer(many=True, read_only=True)
+    house_owner = CustomUserSerializer(read_only=True)
     class Meta:
         model = House
         fields = "__all__"
+
+class BasicHouseInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = House
+        fields = ['id', 'name', 'description']
 
 class HouseCreateSerializer(serializers.ModelSerializer):
     users = CustomUserSerializer(many=True, read_only=True)

@@ -13,3 +13,5 @@ class House(models.Model):
     users = models.ManyToManyField(CustomUser, related_name='houses')
     house_owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='house_owner')
 
+    def __str__(self):
+        return self.name

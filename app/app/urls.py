@@ -40,6 +40,7 @@ urlpatterns = [
     path("", include("djoser.urls")),
     path("", include("djoser.urls.jwt")),
     path("tasks/", include("tasks.urls")),
+    path("invitations/", include("invitations.urls")),
     path("custom-user/", include("users.urls")),
     path("houses/", include("houses.urls")),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
