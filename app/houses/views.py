@@ -1,6 +1,7 @@
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import House
@@ -12,6 +13,7 @@ from .swagger_schemas import get_house_schema, delete_house_schema, edit_house_s
 class HouseListCreateView(generics.ListCreateAPIView):
     queryset = House.objects.all()
     serializer_class = HouseSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -36,6 +38,7 @@ class HouseListCreateView(generics.ListCreateAPIView):
 class HouseDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = HouseSerializer
     queryset = House.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         if self.request.method == 'PATCH':
