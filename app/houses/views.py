@@ -5,15 +5,19 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import House
-from .serializers import HouseSerializer, UpdateHouseSerializer
+from .serializers import HouseSerializer, UpdateHouseSerializer, ListHousesSerializer, CreateHouseSerializer
 from .swagger_schemas import get_house_schema, delete_house_schema, edit_house_schema, create_house_schema, \
     get_house_list_schema
 
 
 class HouseListCreateView(generics.ListCreateAPIView):
     queryset = House.objects.all()
-    serializer_class = HouseSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return CreateHouseSerializer
+        return ListHousesSerializer
 
     def get_queryset(self):
         user = self.request.user
@@ -28,7 +32,8 @@ class HouseListCreateView(generics.ListCreateAPIView):
 
     @swagger_auto_schema(**create_house_schema)
     def post(self, request, *args, **kwargs):
-        data = self.serializer_class(data=request.data)
+        print(request.data)
+        data = self.get_serializer(data=request.data)
         if data.is_valid():
             data.save(house_owner=request.user)
             return Response(data.data, status=status.HTTP_201_CREATED)
