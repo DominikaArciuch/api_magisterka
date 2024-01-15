@@ -9,10 +9,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ["id", "email", "first_name", "last_name", "username"]
 
 
-class CustomUserAvatarsSerializer(serializers.ModelSerializer):
+class CustomUserForHouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ["id", "email", "first_name", "last_name", "username"]
+        fields = ["username"]
 
 
 class CreateCustomUserSerializer(serializers.ModelSerializer):

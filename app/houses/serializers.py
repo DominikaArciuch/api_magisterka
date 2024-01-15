@@ -1,10 +1,12 @@
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_serializer_method
 from rest_framework import serializers
 from .models import House
 from users.serializers import CustomUserSerializer
 
 from users.models import CustomUser
 
-from users.serializers import CustomUserAvatarsSerializer
+from users.serializers import CustomUserForHouseSerializer
 
 
 class HouseSerializer(serializers.ModelSerializer):
@@ -18,18 +20,23 @@ class HouseSerializer(serializers.ModelSerializer):
 
 
 class ListHousesSerializer(serializers.ModelSerializer):
-    avatar = CustomUserAvatarsSerializer(many=True, read_only=True)
     role = serializers.SerializerMethodField()
+    users = serializers.SerializerMethodField()
 
     class Meta:
         model = House
-        fields = ['id', 'name', 'description', 'avatar', 'role']
+        fields = ['id', 'name', 'description', 'users', 'role']
 
     def get_role(self, obj):
         if obj.house_owner == self.context['request'].user:
             return "admin"
         else:
             return "user"
+
+    def get_users(self, obj):
+        return [user.username for user in obj.users.all()]
+
+
 
 
 class UpdateHouseSerializer(serializers.ModelSerializer):
