@@ -25,7 +25,7 @@ class ListHousesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = House
-        fields = ['id', 'name', 'description', 'users', 'role']
+        fields = ['id', 'name', 'description', 'users', 'role', 'color']
 
     def get_role(self, obj):
         if obj.house_owner == self.context['request'].user:
@@ -51,9 +51,10 @@ class UpdateHouseSerializer(serializers.ModelSerializer):
 
 
 class CreateHouseSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
     class Meta:
         model = House
-        fields = ['name', 'color', 'description']
+        fields = ['id', 'name', 'color', 'description']
 
 
 class BasicHouseInfoSerializer(serializers.ModelSerializer):
