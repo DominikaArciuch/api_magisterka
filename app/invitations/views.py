@@ -24,6 +24,7 @@ class SendInvitationView(generics.ListCreateAPIView):
     @swagger_auto_schema(**send_invitation_schema)
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
+        print("strzal")
         if serializer.is_valid():
             is_user_already_invited = Invitation.objects.filter(user=serializer.validated_data['user'],
                                                                 house=serializer.validated_data['house']).exists()
